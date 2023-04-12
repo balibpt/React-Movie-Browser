@@ -1,18 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { auth } from "../Firebase";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loginSuccess, setLoginSuccess] = useState(false);
 
   const navigate = useNavigate();
 
-  const signIn = async (e) => {
+  const signIn = async () => {
     try {
-      const response = await signInWithEmailAndPassword(auth, email, password);
-      console.log(response);
+      await signInWithEmailAndPassword(auth, email, password);
+      setLoginSuccess(true);
       navigate("/movies");
     } catch (error) {
       console.log(error);
@@ -77,10 +78,23 @@ export default function SignIn() {
           </div>
           <div>
             <button
-              className="rounded-lg mt-12 bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              onClick={signIn}
+              className="rounded-lg mt-12 mb-4 bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              onClick={() => {
+                signIn();
+              }}
             >
               Login
+            </button>
+          </div>
+          <div>
+            <label
+              for="website-admin"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Don't have an account?
+            </label>
+            <button className="rounded-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <Link to="/sign-up">Make an Account</Link>
             </button>
           </div>
         </div>

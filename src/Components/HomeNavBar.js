@@ -1,7 +1,43 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { signOut } from "firebase/auth";
+import { auth } from "../Firebase";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../Auth";
 
 export default function HomeNavBar() {
+  const user = useContext(AuthContext);
+
+  const navigate = useNavigate();
+
+  const displayLoginInOrSignOut = () => {
+    if (user) {
+      return (
+        <button
+          onClick={userSignOut}
+          class="text-sm  text-blue-600 dark:text-blue-500 hover:underline"
+        >
+          Sign out
+        </button>
+      );
+    } else {
+      return (
+        <button
+          onClick={() => {
+            navigate("/sign-in");
+          }}
+          class="text-sm  text-blue-600 dark:text-blue-500 hover:underline"
+        >
+          Login
+        </button>
+      );
+    }
+  };
+
+  const userSignOut = () => {
+    signOut(auth);
+    window.location.reload(false);
+  };
+
   return (
     <React.Fragment>
       <nav class="bg-white border-gray-200 dark:bg-gray-900">
@@ -23,12 +59,7 @@ export default function HomeNavBar() {
             >
               Shows made easy with FilmFinder
             </a>
-            <Link
-              to="/sign-in"
-              class="text-sm  text-blue-600 dark:text-blue-500 hover:underline"
-            >
-              Login
-            </Link>
+            {displayLoginInOrSignOut()}
           </div>
         </div>
       </nav>
