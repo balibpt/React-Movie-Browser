@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function HomeNavBar() {
   return (
@@ -22,12 +23,12 @@ export default function HomeNavBar() {
             >
               Shows made easy with FilmFinder
             </a>
-            <a
-              href="#"
+            <Link
+              to="/sign-in"
               class="text-sm  text-blue-600 dark:text-blue-500 hover:underline"
             >
               Login
-            </a>
+            </Link>
           </div>
         </div>
       </nav>

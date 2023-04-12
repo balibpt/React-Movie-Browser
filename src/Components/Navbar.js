@@ -1,8 +1,35 @@
-import React from "react";
+import React, { useContext } from "react";
 import Home from "../Pages/Home";
+import { signOut } from "firebase/auth";
+import { AuthContext } from "../Auth";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { auth } from "../Firebase";
 
 export default function Navbar() {
+  const user = useContext(AuthContext);
+
+  const navigate = useNavigate();
+
+  const userSignOut = () => {
+    signOut(auth);
+    navigate("/sign-in");
+  };
+
+  const displaySignOut = () => {
+    if (user) {
+      return (
+        <button
+          type="button"
+          onClick={userSignOut}
+          class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+        >
+          Sign Out
+        </button>
+      );
+    }
+  };
+
   return (
     <React.Fragment>
       <nav className="bg-white border-gray-200 dark:bg-gray-900">
@@ -18,6 +45,7 @@ export default function Navbar() {
             </span>
           </a>
           <div className="flex md:order-2">
+            {displaySignOut()}
             <button
               type="button"
               data-collapse-toggle="navbar-search"
