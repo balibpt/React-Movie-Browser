@@ -1,71 +1,45 @@
-import React, { useEffect, useState } from "react";
-import Navbar from "../Components/Navbar";
-import axios from "axios";
+import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Home() {
-  const [topMovies, setTopMovies] = useState([]);
-
-  useEffect(() => {
-    const fetchMovies = async () => {
-      const response = await axios.get(
-        "https://api.themoviedb.org/3/movie/top_rated?api_key=f62fed0e20cdf04bce2f1423a643bbea&language=en-US&page=1"
-      );
-      setTopMovies(response.data.results);
-    };
-    fetchMovies();
-  });
-
   return (
     <React.Fragment>
-      <Navbar />
-      <div className="container mx-auto px-4">
-        <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white my-3">
-          Movies
-        </h1>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {topMovies.map((movie) => (
-            <div
-              className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-              key={movie.id}
+      <section class="bg-center bg-no-repeat bg-[url('/Users/balitok/Desktop/ReactProjects/movie-browser/public/peakpx.jpg')] bg-gray-700 bg-blend-multiply">
+        <div class="px-4 mx-auto max-w-screen-xl text-center py-24 lg:py-56">
+          <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">
+            Check out the latest Movies and Top Rated Tv Shows
+          </h1>
+          <p class="mb-8 text-lg font-normal text-gray-300 lg:text-xl sm:px-16 lg:px-48">
+            A movie browser app that allows users to browse through a collection
+            of movies and filter them by various categories such as genre,
+            release year, and rating. Users can also search for movies by title
+            or actor. The app will display a list of movies that match the
+            selected filters, and users can click on a movie to view its
+            details, such as synopsis, cast, and crew.
+          </p>
+          <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
+            <Link
+              to="/movies"
+              class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
             >
-              <div>
-                <img
-                  className="rounded-t-lg w-full"
-                  src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
-                  alt=""
-                />
-              </div>
-              <div className="p-5">
-                <div className="flex justify-between items-center">
-                  <h5 className="m-0 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    {movie.title}
-                  </h5>
-                  <p className="flex justify-between items-center">
-                    {movie.vote_average}{" "}
-                    <svg
-                      aria-hidden="true"
-                      class="w-5 h-5 text-yellow-400 inline ml-1"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <title>Rating star</title>
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                    </svg>
-                  </p>
-                </div>
-                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 line-clamp-3">
-                  {movie.overview}
-                </p>
-                <p className="font-bold tracking-tight text-gray-900 dark:text-white">
-                  Release Date:{" "}
-                  <span className="ml-2">{movie.release_date}</span>
-                </p>
-              </div>
-            </div>
-          ))}
+              Get started
+              <svg
+                aria-hidden="true"
+                class="ml-2 -mr-1 w-4 h-4"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </Link>
+          </div>
         </div>
-      </div>
+      </section>
     </React.Fragment>
   );
 }
