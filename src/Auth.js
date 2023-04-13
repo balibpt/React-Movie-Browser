@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { auth } from "./Firebase";
+import React, { useEffect, useState, createContext } from "react";
+import { auth, onAuthStateChanged } from "./Firebase";
 import Home from "./Pages/Home";
 import Movies from "./Pages/Movies";
 import Tv from "./Pages/Tv";

@@ -20,6 +20,7 @@ export default function Home() {
     };
     fetchMovies();
   });
+
   if (user) {
     return (
       <React.Fragment>

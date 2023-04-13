@@ -13,7 +13,7 @@ export default function Navbar() {
 
   const userSignOut = () => {
     signOut(auth);
-    navigate("/sign-in");
+    navigate("/");
   };
 
   const displaySignOut = () => {
